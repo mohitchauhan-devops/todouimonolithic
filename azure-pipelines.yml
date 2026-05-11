@@ -1,17 +1,17 @@
 trigger:
-- main
+- none
 
-pool:
-  vmImage: ubuntu-latest
+pool: powermanage-pool
 
-steps:
-- task: NodeTool@0
-  inputs:
-    versionSource: 'spec'
-    versionSpec: '16.x'
-  displayName: 'Install Node.js'
 
-- script: |
-    npm install
-    npm run build
-  displayName: 'npm install and build'
+stages:
+  - stage: Setup_nodejs
+    displayName: Setup Nodejs
+    jobs:
+      - job: Install Nodejs
+        steps:
+        - checkout: self
+
+        
+          
+            
