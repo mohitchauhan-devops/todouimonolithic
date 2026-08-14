@@ -1,39 +1,19 @@
-trigger:
-- none
+trigger: none
 
 pool: powermanage-pool
 
+steps:
 
-stages:
-  - stage: Setup_nodejs
-    displayName: Setup Nodejs
-    jobs:
-      - job: Install_Nodejs
-        steps:
-        - checkout: self
+- task: UseNode@1
+  inputs:
+    version: '16.x'
 
-        - task: NodeTaskRunnerInstaller@0
-          inputs:
-            nodeVersion: '16'
+- task: PowerShell@2
+  inputs:
+    targetType: 'inline'
+    script: 'npm install'
 
-        # - task: Npm@1
-        #   inputs:
-        #     command: 'install'
-        #     workingDir: '$(Build.SourcesDirectory)'
-          
-        # - task: Npm@1
-        #   inputs:
-        #     command: 'custom'
-        #     workingDir: '$(Build.SourcesDirectory)'
-        #     customCommand: 'run build'
-      
-        - task: PowerShell@2
-          displayName: Install and Build React app
-          inputs:
-            targetType: 'inline'
-            workingDirectory: '$(Build.SourcesDirectory)'
-            script: |
-              npm install
-              npm run build
-              dir build
-       
+- task: PowerShell@2
+  inputs:
+    targetType: 'inline'
+    script: 'npm run build'
