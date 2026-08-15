@@ -26,3 +26,12 @@ steps:
     targetPath: '$(Build.SourcesDirectory)/build'
     artifact: 'todoui'
     publishLocation: 'pipeline'
+
+- task: ArchiveFiles@2
+  displayName: Archive Artifact
+  inputs:
+    rootFolderOrFile: '$(Build.SourcesDirectory)/build'
+    includeRootFolder: true
+    archiveType: 'zip'
+    archiveFile: '$(Build.ArtifactStagingDirectory)/todoui.zip'
+    replaceExistingArchive: true
