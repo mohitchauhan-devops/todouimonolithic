@@ -5,19 +5,23 @@ pool: powermanage-pool
 steps:
 
 - task: NodeAndNpmTool@1
+  displayName: Install Nodejs version
   inputs:
     versionSpec: '16.x'
 
 - task: Npm@1
+  displayName: npm install
   inputs:
     command: 'install'
 
 - task: Npm@1
+  displayName: npm run build
   inputs:
     command: 'custom'
     customCommand: 'npm run build'
 
 - task: PublishPipelineArtifact@1
+  displayName: publish artifact
   inputs:
     targetPath: '$(Pipeline.Workspace)/Build'
     artifact: 'todoui'
