@@ -35,3 +35,10 @@ steps:
     archiveType: 'zip'
     archiveFile: '$(Build.ArtifactStagingDirectory)/todoui.zip'
     replaceExistingArchive: true
+
+- task: PublishPipelineArtifact@1
+  displayName: publish artifact zip
+  inputs:
+    targetPath: '$(Build.ArtifactStagingDirectory)/todoui.zip'
+    artifact: 'todoui.zip'
+    publishLocation: 'pipeline'
