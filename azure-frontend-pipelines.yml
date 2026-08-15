@@ -23,6 +23,6 @@ steps:
 - task: PublishPipelineArtifact@1
   displayName: publish artifact
   inputs:
-    targetPath: '$(Pipeline.Workspace)/Build'
+    targetPath: '$(Build.SourcesDirectory)/build'
     artifact: 'todoui'
     publishLocation: 'pipeline'
