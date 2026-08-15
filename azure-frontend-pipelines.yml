@@ -4,24 +4,21 @@ pool: powermanage-pool
 
 steps:
 
-- task: UseNode@1
+- task: NodeAndNpmTool@1
   inputs:
-    version: '16.x'
+    versionSpec: '16.x'
 
-- task: PowerShell@2
+- task: Npm@1
   inputs:
-    targetType: 'inline'
-    script: 'npm install'
+    command: 'install'
 
-- task: PowerShell@2
+- task: Npm@1
   inputs:
-    targetType: 'inline'
-    script: 'npm run build'
+    command: 'custom'
+    customCommand: 'npm run build'
 
-- task: ArchiveFiles@2
+- task: PublishPipelineArtifact@1
   inputs:
-    rootFolderOrFile: '$(Build.SourceDirectory)'
-    includeRootFolder: true
-    archiveType: 'zip'
-    archiveFile: '$(Build.ArtifactStagingDirectory)/Build.zip'
-    replaceExistingArchive: true
+    targetPath: '$(Pipeline.Workspace)/Build'
+    artifact: 'todoui'
+    publishLocation: 'pipeline'
