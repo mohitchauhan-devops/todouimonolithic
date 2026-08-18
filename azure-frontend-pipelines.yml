@@ -31,7 +31,7 @@ steps:
   displayName: Archive Artifact
   inputs:
     rootFolderOrFile: '$(Build.SourcesDirectory)/build'
-    includeRootFolder: true
+    includeRootFolder: false
     archiveType: 'zip'
     archiveFile: '$(Build.ArtifactStagingDirectory)/todoui.zip'
     replaceExistingArchive: true
