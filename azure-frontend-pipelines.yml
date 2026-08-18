@@ -43,3 +43,36 @@ steps:
     artifact: 'todoui.zip'
     publishLocation: 'pipeline'
 
+- task: CopyFilesOverSSH@0
+  inputs:
+    sshEndpoint: 'frontendssh'
+    sourceFolder: '$(Build.ArtifactStagingDirectory)'
+    contents: 'todoui.zip'
+    targetFolder: '/var/www/html/'
+    readyTimeout: '20000'
+
+- task: SSH@0
+  inputs:
+    sshEndpoint: 'frontendssh'
+    runOptions: 'commands'
+    commands: |
+      echo "===== DEPLOY START ====="
+      
+      
+            echo "===== ZIP BEFORE ====="
+            ls -lah /var/www/html/todoui.zip
+      
+      
+            echo "===== EXTRACT ====="
+            /usr/bin/unzip -o /var/www/html/todoui.zip -d /var/www/html/
+      
+      
+            echo "===== VERIFY ====="
+            ls -lah /var/www/html
+            test -f /var/www/html/index.html
+            test -d /var/www/html/static
+      
+      
+            echo "===== REMOVE ZIP ====="
+            rm -f /var/www/html/todoui.zip
+    readyTimeout: '20000'
