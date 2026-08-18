@@ -42,3 +42,4 @@ steps:
     targetPath: '$(Build.ArtifactStagingDirectory)/todoui.zip'
     artifact: 'todoui.zip'
     publishLocation: 'pipeline'
+
